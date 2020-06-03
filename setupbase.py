@@ -20,8 +20,9 @@ import os
 
 here = os.path.abspath(os.path.dirname(sys.argv[0]))
 
+
 def get_version(path):
-    version = {}
-    with open(os.path.join(here, path)) as f:
-        exec (f.read(), {}, version)
-    return version['__version__']
+  version = {}
+  with open(os.path.join(here, path)) as f:
+    exec(f.read(), {}, version)
+  return version['__version__']
