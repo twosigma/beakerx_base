@@ -46,11 +46,12 @@ setup_args = dict(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7'
     ],
     python_requires='>=3',
     install_requires=[
-        'ipywidgets>=7.5.1'
+        'ipywidgets>=7.5.1,<8'
         'pandas',
         'pytz'
     ],
