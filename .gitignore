@@ -1,6 +1,6 @@
 # IntelliJ IDEA configuration files
 .idea/
-.iml
+*.iml
 
 # Python
 *.py[cod]
