@@ -92,7 +92,7 @@ class BeakerxDOMWidget(DOMWidget):
                 'version_minor': 0,
                 'model_id': self._model_id
             }
-        }
+        },
         display(data, raw=True)
 
         self._handle_displayed(**kwargs)
@@ -118,7 +118,7 @@ class BeakerxBox(Box):
                 'model_id': self._model_id
             },
             'method': 'display_data'
-        }
+        },
         for component in self.components:
             self.components[component].fireInit()
 
