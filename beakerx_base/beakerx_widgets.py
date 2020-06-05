@@ -12,15 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import types
-
-from IPython.display import display
-from ipywidgets import Box, DOMWidget, Text, Label, Textarea, Password, \
-    Button, Widget, \
-    SelectMultiple, Select, Dropdown, Checkbox, HBox, \
-    VBox, RadioButtons, Layout, widget_serialization, HTML
+from ipywidgets import Box, DOMWidget, Text, Label, Textarea, Password, Button, Widget, SelectMultiple, Select, \
+    Dropdown, Checkbox, HBox, VBox, RadioButtons, Layout, widget_serialization, HTML
 from ipywidgets.widgets.trait_types import InstanceDict
-from traitlets import Int, Unicode, Dict, Bool, Union, List, Any
+from traitlets import Int, Unicode, Dict, Bool, Union, List, Any, observe
+from IPython.display import display
+import types
 
 
 class EasyFormComponent:
@@ -92,7 +89,7 @@ class BeakerxDOMWidget(DOMWidget):
                 'version_minor': 0,
                 'model_id': self._model_id
             }
-        },
+        }
         display(data, raw=True)
 
         self._handle_displayed(**kwargs)
