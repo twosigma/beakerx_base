@@ -1,5 +1,5 @@
 {% set name = "beakerx_base" %}
-{% set version = "1.5.0" %}
+{% set version = "1.6.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -11,6 +11,7 @@ source:
 
 source:
   url: https://files.pythonhosted.org/packages/source/b/beakerx/{{ name }}-{{ version }}.tar.gz
+  #url: file:///YOUR_LOCAL_PATH/beakerx_base/dist/{{ name }}-{{ version }}.tar.gz
 
 build:
   number: 1
