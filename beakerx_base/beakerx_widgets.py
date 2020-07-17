@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import types
+from IPython.display import display
 from ipywidgets import Box, DOMWidget, Text, Label, Textarea, Password, Button, Widget, SelectMultiple, Select, \
     Dropdown, Checkbox, HBox, VBox, RadioButtons, Layout, widget_serialization, HTML
 from ipywidgets.widgets.trait_types import InstanceDict
-from traitlets import Int, Unicode, Dict, Bool, Union, List, Any, observe
-from IPython.display import display
-import types
+from traitlets import Int, Unicode, Dict, Bool, Union, List, Any
 
 
 class EasyFormComponent:
@@ -115,7 +115,8 @@ class BeakerxBox(Box):
                 'model_id': self._model_id
             },
             'method': 'display_data'
-        },
+        }
+
         for component in self.components:
             self.components[component].fireInit()
 
@@ -128,8 +129,10 @@ class BeakerxTextArea(Textarea, EasyFormComponent):
     def __init__(self, **kwargs):
         super(BeakerxTextArea, self).__init__(**kwargs)
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _model_name = Unicode('TextAreaModel').tag(sync=True)
+    _view_name = Unicode('TextAreaView').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -147,8 +150,8 @@ class BeakerxText(Text, EasyFormComponent):
         super(BeakerxText, self).__init__(**kwargs)
         self.observe(self.on_value_change, names='value')
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -165,8 +168,8 @@ class BeakerxPassword(Password, EasyFormComponent):
         super(BeakerxPassword, self).__init__(**kwargs)
         self.observe(self.on_value_change, names='value')
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -181,8 +184,8 @@ class BeakerxHTML(HTML, EasyFormComponent):
         if len(args) > 0:
             self.value = args[0]
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -196,8 +199,8 @@ class BeakerxHTMLPre(HTML, EasyFormComponent):
 
     _view_name = Unicode('HTMLPreView').tag(sync=True)
     _model_name = Unicode('HTMLPreModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -228,8 +231,8 @@ class BeakerxComboBox(Dropdown, EasyFormComponent):
 
     _view_name = Unicode('ComboBoxView').tag(sync=True)
     _model_name = Unicode('ComboBoxModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
     editable = Bool(default_value=False).tag(sync=True)
@@ -260,8 +263,8 @@ class BeakerxCheckbox(Checkbox, EasyFormComponent):
     def __init__(self, **kwargs):
         super(BeakerxCheckbox, self).__init__(**kwargs)
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
@@ -328,8 +331,8 @@ class BeakerxVBox(VBox):
 class CyclingDisplayBox(BeakerxBox):
     _view_name = Unicode('CyclingDisplayBoxView').tag(sync=True)
     _model_name = Unicode('CyclingDisplayBoxModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
 
     period = Int(5000).tag(sync=True)
 
@@ -344,8 +347,8 @@ class CyclingDisplayBox(BeakerxBox):
 class GridView(BeakerxVBox):
     _view_name = Unicode('GridView').tag(sync=True)
     _model_name = Unicode('GridViewModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
 
     def __init__(self, rows):
         super(GridView, self).__init__()
@@ -367,8 +370,8 @@ class SelectionContainer(BeakerxBox):
 class Tab(SelectionContainer):
     _view_name = Unicode('TabView').tag(sync=True)
     _model_name = Unicode('TabModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
 
     def __init__(self, childrens, labels):
         super(Tab, self).__init__(childrens, labels)
@@ -378,8 +381,8 @@ class SelectMultipleWithRows(SelectMultiple, EasyFormComponent):
     def __init__(self, **kwargs):
         super(SelectMultipleWithRows, self).__init__(**kwargs)
 
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
     size = Int(5, help="The number of rows to display.").tag(sync=True)
@@ -391,8 +394,8 @@ class SelectMultipleSingle(Select, EasyFormComponent):
 
     _view_name = Unicode('SelectMultipleSingleView').tag(sync=True)
     _model_name = Unicode('SelectMultipleSingleModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
     size = Int(5, help="The number of rows to display.").tag(sync=True)
@@ -411,8 +414,8 @@ class DatePicker(BeakerxDOMWidget, EasyFormComponent):
 
     _view_name = Unicode('DatePickerView').tag(sync=True)
     _model_name = Unicode('DatePickerModel').tag(sync=True)
-    _view_module = Unicode('beakerx').tag(sync=True)
-    _model_module = Unicode('beakerx').tag(sync=True)
+    _view_module = Unicode('beakerx_widgets').tag(sync=True)
+    _model_module = Unicode('beakerx_widgets').tag(sync=True)
     _model_module_version = Unicode('*').tag(sync=True)
     _view_module_version = Unicode('*').tag(sync=True)
 
