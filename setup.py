@@ -25,8 +25,8 @@ from setupbase import (
 
 setup_args = dict(
     name='beakerx_base',
-    description='BeakerX: Beaker Extensions for Jupyter Notebook',
-    long_description='BeakerX: Beaker Extensions for Jupyter Notebook',
+    description='BeakerX: Beaker Base Extensions for Jupyter Notebook',
+    long_description='BeakerX: Beaker Base Extensions for Jupyter Notebook',
     version=get_version(os.path.join('beakerx_base', '_version.py')),
     author='Two Sigma Open Source, LLC',
     author_email='beakerx-feedback@twosigma.com',
@@ -37,7 +37,7 @@ setup_args = dict(
         'widgets'
     ],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Framework :: IPython',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
