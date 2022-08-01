@@ -15,7 +15,7 @@
 import inspect
 import json
 import time
-from datetime import datetime
+from datetime import date, datetime
 from enum import Enum
 
 import numpy as np
@@ -54,13 +54,13 @@ def datetime_to_number(value):
 
 def unix_time(dt):
     if isinstance(dt, Timestamp):
-        j_object = {
-            'type': 'Date',
-            'timestamp': pandas_timestamp_to_int(dt)
-        }
-        return j_object
+        timestamp = pandas_timestamp_to_int(dt)
     else:
-        return date_to_int(dt)
+        timestamp = date_to_int(str(dt))
+    return {
+        'type': 'Date',
+        'timestamp': timestamp
+    }
 
 
 def date_time_2_millis(dt):
@@ -187,18 +187,18 @@ def padYs(g, gMax):
 
 class ObjectEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, datetime):
-            return self.default(date_time_2_millis(obj))
+        if isinstance(obj, (date, datetime)):
+            return date_time_2_millis(obj)
         elif isinstance(obj, Enum):
-            return self.default(obj.value)
+            return obj.value
         elif isinstance(obj, Color):
-            return self.default(obj.hex())
+            return obj.hex()
         elif isinstance(obj, pd.Series):
-            return self.default(obj.tolist())
+            return obj.tolist()
         elif isinstance(obj, np.ndarray):
-            return self.default(obj.tolist())
+            return obj.tolist()
         elif isinstance(obj, (np.int64, np.bool_)):
-            return self.default(obj.item())
+            return obj.item()
         elif hasattr(obj, "__dict__"):
             d = dict(
                 (key, value)
@@ -218,9 +218,9 @@ class ObjectEncoder(json.JSONEncoder):
                 and not inspect.ismethoddescriptor(value)
                 and not inspect.isroutine(value)
             )
-            return self.default(d)
-        return obj
+            return d
 
+        return json.JSONEncoder.default(self, obj)
 
 class ColorUtils:
     @staticmethod

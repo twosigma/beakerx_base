@@ -31,6 +31,11 @@ jobs:
       shell: bash -l {0}
       run: |
         conda env create -n beakerx -f configuration.yml
+    - name: Test BeakerX Base
+      shell: bash -l {0}
+      run: |
+        conda activate beakerx
+        pytest
     - name: Build BeakerX Base
       shell: bash -l {0}
       run: |
