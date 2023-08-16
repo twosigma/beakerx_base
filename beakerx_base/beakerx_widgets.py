@@ -82,18 +82,6 @@ class BeakerxDOMWidget(DOMWidget):
 
     layout = InstanceDict(BeakerxLayout).tag(sync=True, **widget_serialization)
 
-    def _ipython_display_(self, **kwargs):
-        data = {
-            'application/vnd.jupyter.widget-view+json': {
-                'version_major': 2,
-                'version_minor': 0,
-                'model_id': self._model_id
-            }
-        }
-        display(data, raw=True)
-
-        self._handle_displayed(**kwargs)
-
 
 class BeakerxBox(Box):
     def __init__(self, **kwargs):
@@ -107,22 +95,11 @@ class BeakerxBox(Box):
 
     layout = InstanceDict(BeakerxLayout).tag(sync=True, **widget_serialization)
 
-    def _ipython_display_(self, **kwargs):
-        data = {
-            'application/vnd.jupyter.widget-view+json': {
-                'version_major': 2,
-                'version_minor': 0,
-                'model_id': self._model_id
-            },
-            'method': 'display_data'
-        }
-
+    def _repr_mimebundle_(self, **kwargs):
         for component in self.components:
             self.components[component].fireInit()
-
-        display(data, raw=True)
-
-        self._handle_displayed(**kwargs)
+        
+        return super(BeakerxBox, self)._repr_mimebundle_(**kwargs)
 
 
 class BeakerxTextArea(Textarea, EasyFormComponent):
